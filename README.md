@@ -37,6 +37,25 @@ uvicorn app.main:app --reload
 
 The API is available at http://127.0.0.1:8000 and its OpenAPI docs at http://127.0.0.1:8000/docs.
 
+## Connect the frontend to the API
+
+The frontend API client defaults to `http://localhost:8000`. To use a different backend URL, create `frontend/.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+Restart the Next.js development server after changing environment variables. Start both the FastAPI backend and Next.js frontend for live demo balances and transfers.
+
+The demo API exposes:
+- `GET /health` — demo service status.
+- `GET /api/accounts` — fictional customer accounts.
+- `GET /api/beneficiaries` — saved fictional beneficiaries.
+- `GET /api/transactions` — demo ledger entries.
+- `POST /api/transfers` — validates and simulates a transfer, recording matching debit and credit entries.
+
+Transfers update the in-memory source and beneficiary balances. Data resets when the backend restarts; this is not a persistent or production ledger.
+
 ## Demo safety
 
 All displayed account details and transactions are fictional. The backend currently uses in-memory demo data, which resets when the server restarts. It is not production banking software and must not be used to store real customer information or credentials.
